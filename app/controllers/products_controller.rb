@@ -5,4 +5,5 @@ class ProductsController < ApplicationController
         
         render json: @product
        end
+       
 end
