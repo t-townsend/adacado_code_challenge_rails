@@ -25,7 +25,7 @@ config/mandrill.yml
 config/paperclip.yml
 config/environment_variables.yml
 
-initializers/app_keys.rb
+config/initializers/app_keys.rb
 
 # Ignore Byebug command history file.
 .byebug_history
