@@ -1,52 +1,89 @@
 import React, { Component } from 'react';
 import ProductsIndex from './components/ProductsIndex';
+import ProductShow from './components/ProductShow';
 
 import './App.css'
 
 
+const BASE_URL = 'http://localhost:3000/api/v1';
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
-      to: 'productIndex'
-    };
+      product: null,
+      products: []
+    }
 
-    this.goToProductIndex = this.goToProductIndex.bind(this);
+  
+    this.getProduct = this.getProduct.bind(this);
+   
+  }
+
+  getProducts () {
+    fetch(`${BASE_URL}/products`, {mode: 'no-cors'})
+    .then(r => r.json())
+    .then(({products}) => this.setState({products}))
+  }
+
+  getProduct (id) {
+    fetch(`${BASE_URL}/products/${id}`, { mode: 'no-cors'})
+    .then(r => r.json())
+    .then(product => this.setState({ product }))
+  }
+
+  postProduct (product) {
+    fetch(
+      `${BASE_URL}/products`,
+      {
+        
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({product})
+      }
+    )
+    .then(() => { this.getProducts(); })
+    .catch(console.error)
   }
 
 
-  goToProductIndex () {
-    // console.log("test");
-    this.setState({
-      to: `productIndex`
-    })
-  }
-
-
-_renderPath () {
-    const [path, id] = this.state.to.split('#');
-
-    // console.log(path);
-    return ({
-    
-      ProductsIndex: (
-        <ProductsIndex />
-      )
-    })[path];
+  componentDidMount () {
+    this.getProducts();
   }
 
   render() {
+    let productView = '';
+    if (this.state.product !== null) {
+      productView = (
+        <ProductShow
+          onBackClick={e => {
+            e.preventDefault();
+            this.setState({product: null});
+          }}
+          product={this.state.product || {}} />
+      );
+    } else {
+      productView = (
+        <ProductsIndex
+          products={this.state.products} />
+      );
+    }
+
     return (
       <div className="App">
-        <div className="container">
-        <h1>Boardgames</h1>
-        {this._renderPath()}
-      </div>
+        <h1>Boardgames!</h1>
+        
+        {
+          productView
+        }
       </div>
     );
   }
 }
+
 
 export default App;
