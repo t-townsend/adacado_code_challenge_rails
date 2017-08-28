@@ -1,8 +1,9 @@
 import React from 'react';
 
 function ProductShow ({product, onBackClick = () => {}} ) {
+  
   const {
-    id = '', title = '', image = '', description = '', price = ''
+    id = '', title = '', description = '', image = '', price = ''
   } = product;
 
   return (
@@ -11,6 +12,7 @@ function ProductShow ({product, onBackClick = () => {}} ) {
         onClick={onBackClick}
         href="#">{'<<<'}</a>
       <h1>{title}</h1>
+      <img href={{image}}/>
       <p>{description}</p>
       <p><strong>Price:</strong> {price}</p>
     </div>

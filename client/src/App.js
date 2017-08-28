@@ -7,15 +7,6 @@ import './App.css'
 
 const BASE_URL = 'http://localhost:3000/api/v1';
 
-// Step 2: Write a method, getQuestions, to fetch all questions from the Awesome
-//         Answers API. It should save the questions that it gets back in the
-//         state with this.setState after it's complete.
-// Step 3: Write a QuestionsIndex component to render all the questions saved in
-//         in the state from the previous step. Best practice to keep in its own
-//         file and import it.
-// Step 4: Write a getQuestion function to fetch the data for one quesiton, then
-//         write a QuestionShow component to display that question
-
 
 class App extends Component {
   constructor (props) {
@@ -23,7 +14,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      products: null,
+      product: null,
       products: []
     }
 
@@ -71,8 +62,16 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Boardgames!</h1>
-        }
-          questionView
+        
+        {/* <ul>
+          {
+            this.state.products.map(
+              product => <li key={product.id}>{product.title}</li>
+            )
+          }
+        </ul> */}
+        {
+          productView
         }
       </div>
     );
